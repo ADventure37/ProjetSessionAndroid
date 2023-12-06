@@ -18,7 +18,7 @@ class FoodViewModel: ViewModel() {
     val food: LiveData<Food> get() = _food
 
     val service = Retrofit.Builder()
-        .baseUrl("http://10.0.2.2:3000/api/food")
+        .baseUrl("http://10.0.2.2:3000/api/")
         .addConverterFactory(MoshiConverterFactory.create())
         .build()
         .create(FoodService::class.java)
@@ -48,7 +48,9 @@ class FoodViewModel: ViewModel() {
     fun createFood(food : Food){
         viewModelScope.launch {
             try {
-                service.createFood(food)
+                println(1)
+                var food1 = service.createFood(food)
+                println(food1)
             } catch (e: Exception) {
                 // Gérer les erreurs
                 e.printStackTrace()

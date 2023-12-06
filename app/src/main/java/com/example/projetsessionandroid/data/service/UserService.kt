@@ -5,21 +5,21 @@ import retrofit2.Call
 import retrofit2.http.*
 
 interface UserService {
-    @POST("/")
+    @POST("user/")
     fun createUser(@Body user: User)
 
-    @GET("/{id}")
+    @GET("user/{id}")
     fun getUser(@Path("id") id: String): User
 
-    @GET("/")
-    fun getAllUsers(): List<User>
+    @GET("user/")
+    suspend fun getAllUsers(): List<User>
 
-    @PUT("/{id}")
+    @PUT("user/{id}")
     fun updateUser(@Path("id") id: String, @Body user: User)
 
-    @DELETE("/{id}")
+    @DELETE("user/{id}")
     fun deleteUser(@Path("id") id: String): Call<Void>
 
-    @GET("/login")
+    @GET("user/login")
     fun loginUser(): Call<User>
 }

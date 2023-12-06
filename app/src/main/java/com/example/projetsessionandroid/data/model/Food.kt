@@ -13,9 +13,9 @@ class Food (
     @SerializedName("quantity")
     val quantity:Int,
     @SerializedName("allergen")
-    val allergen:MutableList<String>,
+    val allergen:List<String>,
     @SerializedName("expiryDate")
-    val expiryDate:Date,
+    val expiryDate:String,
     @SerializedName("idDonator")
     val idDonator:String,
     @SerializedName("idClient")

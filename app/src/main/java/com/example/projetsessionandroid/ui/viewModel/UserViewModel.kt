@@ -18,19 +18,14 @@ class UserViewModel: ViewModel() {
     val user: LiveData<User> get() = _user
 
     val service = Retrofit.Builder()
-        .baseUrl("http://10.0.2.2:3000/api/user")
+        .baseUrl("http://10.0.2.2:3000/api/")
         .addConverterFactory(MoshiConverterFactory.create())
         .build()
         .create(UserService::class.java)
 
     fun getAllUser(){
         viewModelScope.launch {
-            try {
-                users.value = service.getAllUsers()
-            } catch (e: Exception) {
-                // Gérer les erreurs
-                e.printStackTrace()
-            }
+            users.value = service.getAllUsers()
         }
     }
 
@@ -59,7 +54,7 @@ class UserViewModel: ViewModel() {
     fun updateUser(user : User){
         viewModelScope.launch {
             try {
-                service.updateUser(user.id,user)
+                service.updateUser(user._id,user)
             } catch (e: Exception) {
                 // Gérer les erreurs
                 e.printStackTrace()
@@ -70,7 +65,7 @@ class UserViewModel: ViewModel() {
     fun deleteUser(user : User){
         viewModelScope.launch {
             try {
-                service.deleteUser(user.id)
+                service.deleteUser(user._id)
             } catch (e: Exception) {
                 // Gérer les erreurs
                 e.printStackTrace()

@@ -5,18 +5,18 @@ import retrofit2.Call
 import retrofit2.http.*
 
 interface FoodService {
-    @GET("/")
+    @GET("food/")
     fun getAllFoods(): List<Food>
 
-    @POST("/")
-    fun createFood(@Body food: Food): Call<Food>
+    @POST("food/")
+    suspend fun createFood(@Body food: Food): Food
 
-    @GET("/{id}")
+    @GET("food/{id}")
     fun getFoodById(@Path("id") id: String): Food
 
-    @PUT("/{id}")
+    @PUT("food/{id}")
     fun updateFood(@Path("id") id: String, @Body food: Food): Call<Food>
 
-    @DELETE("/{id}")
+    @DELETE("food/{id}")
     fun deleteFood(@Path("id") id: String): Call<Void>
 }
