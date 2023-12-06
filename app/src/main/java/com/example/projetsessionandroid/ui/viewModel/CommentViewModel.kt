@@ -18,7 +18,7 @@ class CommentViewModel: ViewModel() {
     val comment: LiveData<Comment> get() = _comment
 
     val service = Retrofit.Builder()
-        .baseUrl("http://10.0.2.2:3000/api/comment")
+        .baseUrl("http://10.0.2.2:3000/api/comment/")
         .addConverterFactory(MoshiConverterFactory.create())
         .build()
         .create(CommentService::class.java)
