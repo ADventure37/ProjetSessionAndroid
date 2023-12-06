@@ -32,7 +32,7 @@ fun BottomBar(navController: NavController) {
             onClick = {navController.navigate(ScreensRoutes.PostScreen.route) },
             icon = {
                 Icon(
-                    painter = painterResource(id = R.drawable.btn_star_big_on),
+                    painter = painterResource(id = android.R.drawable.ic_menu_add),
                     contentDescription = null,
                     tint = Color.White
                 )
@@ -45,7 +45,7 @@ fun BottomBar(navController: NavController) {
             onClick = {navController.navigate(ScreensRoutes.ProfileScreen.route) },
             icon = {
                 Icon(
-                    painter = painterResource(id = R.drawable.btn_star_big_on),
+                    painter = painterResource(id = android.R.drawable.ic_menu_myplaces),
                     contentDescription = null,
                     tint = Color.White
                 )
