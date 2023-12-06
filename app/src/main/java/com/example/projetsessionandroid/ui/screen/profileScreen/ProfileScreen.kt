@@ -20,11 +20,12 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import com.example.projetsessionandroid.data.model.User
 import com.example.projetsessionandroid.ui.screen.navigation.BottomBar
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ProfileScreenView(navController: NavHostController)  {
+fun ProfileScreenView(navController: NavHostController, user: User)  {
 
     Scaffold(
         topBar = {

@@ -15,13 +15,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.rememberNavController
+import com.example.projetsessionandroid.data.model.User
 import com.example.projetsessionandroid.routes.NavGraph
 import com.example.projetsessionandroid.ui.screen.loginScreen.LoginPage
 import com.example.projetsessionandroid.ui.theme.ProjetSessionAndroidTheme
 import com.example.projetsessionandroid.ui.viewModel.UserViewModel
 
 class MainActivity : ComponentActivity() {
-    private var isLoggedIn by mutableStateOf(true)
+    private var isLoggedIn by mutableStateOf(false)
+    private var userC by mutableStateOf(User("", "","","","",
+        "","","",0))
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -35,15 +39,15 @@ class MainActivity : ComponentActivity() {
                         println("log reussi")
                         // Utilisateur connecté, afficher le reste de l'application
                         val navController = rememberNavController()
-                        NavGraph(navController = navController)
+                        NavGraph(navController = navController, userC)
                     } else {
                         // Afficher la page de connexion
-                        LoginPage { mail, password ->
+                        LoginPage { mail, password, user ->
                             // Ici, vous pouvez vérifier les informations d'identification
-                            println(mail)
-                            println(password)
+
                             // Si les informations d'identification sont correctes, définissez isLoggedIn sur true
                             isLoggedIn = true
+                            userC = user
                         }
                     }
             }

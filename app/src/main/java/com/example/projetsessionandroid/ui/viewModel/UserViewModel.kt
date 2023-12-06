@@ -29,6 +29,12 @@ class UserViewModel: ViewModel() {
         }
     }
 
+    fun getUsersByCity(city :String){
+        viewModelScope.launch {
+            users.value = service.getUsersByCity(city)
+        }
+    }
+
     fun getUserById(id : String){
         viewModelScope.launch {
             try {

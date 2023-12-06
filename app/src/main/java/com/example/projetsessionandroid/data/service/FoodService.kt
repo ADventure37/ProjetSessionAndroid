@@ -6,7 +6,7 @@ import retrofit2.http.*
 
 interface FoodService {
     @GET("food/")
-    fun getAllFoods(): List<Food>
+    suspend fun getAllFoods(): List<Food>
 
     @POST("food/")
     suspend fun createFood(@Body food: Food): Food

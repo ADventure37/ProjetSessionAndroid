@@ -26,6 +26,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.example.projetsessionandroid.data.model.Food
+import com.example.projetsessionandroid.data.model.User
 import com.example.projetsessionandroid.ui.screen.navigation.BottomBar
 import com.example.projetsessionandroid.ui.viewModel.FoodViewModel
 import java.text.SimpleDateFormat
@@ -34,7 +35,7 @@ import java.util.Locale
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun PostScreenView(navController: NavHostController)  {
+fun PostScreenView(navController: NavHostController, user: User)  {
 
     Scaffold(
         topBar = {
@@ -57,14 +58,14 @@ fun PostScreenView(navController: NavHostController)  {
                 .fillMaxSize()
                 .padding(innerPadding)
         ) {
-            itemPostAnnonce()
+            itemPostAnnonce(user)
         }
     }
 }
 
 
 @Composable
-fun itemPostAnnonce() {
+fun itemPostAnnonce(user: User) {
     val initialTextValue = remember { "" }
     val foodViewModel: FoodViewModel = viewModel()
     Column(
@@ -135,11 +136,15 @@ fun itemPostAnnonce() {
             Button(
                 onClick = {
                     var allergen = allergenState.value.split(",")
+                    var food = Food("", nameState.value, descriptionState.value,quantityState.value.toInt(),allergen, expiryDateState.value, user._id,"")
 
-                        var food = Food("", nameState.value, descriptionState.value,quantityState.value.toInt(),allergen, expiryDateState.value, "656ea0acbd33593193b1858f","")
+                    foodViewModel.createFood(food)
 
-                        foodViewModel.createFood(food)
-
+                    nameState.value = initialTextValue
+                    descriptionState.value = initialTextValue
+                    allergenState.value = initialTextValue
+                    quantityState.value = initialTextValue
+                    expiryDateState.value = initialTextValue
 
                 },
                 modifier = Modifier.weight(1f).padding(8.dp)
@@ -151,6 +156,7 @@ fun itemPostAnnonce() {
                 onClick = {
                     nameState.value = initialTextValue
                     descriptionState.value = initialTextValue
+                    allergenState.value = initialTextValue
                     quantityState.value = initialTextValue
                     expiryDateState.value = initialTextValue
                 },

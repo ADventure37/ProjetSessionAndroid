@@ -4,12 +4,13 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.example.projetsessionandroid.data.model.User
 import com.example.projetsessionandroid.ui.screen.accueilScreen.AccueilScreenView
 import com.example.projetsessionandroid.ui.screen.postScreen.PostScreenView
 import com.example.projetsessionandroid.ui.screen.profileScreen.ProfileScreenView
 
 @Composable
-fun NavGraph (navController: NavHostController){
+fun NavGraph (navController: NavHostController, user: User){
     NavHost(
         navController = navController,
         startDestination = ScreensRoutes.HomeScreen.route
@@ -17,7 +18,7 @@ fun NavGraph (navController: NavHostController){
     {
 
         composable(route = ScreensRoutes.HomeScreen.route){
-            AccueilScreenView(navController = navController)
+            AccueilScreenView(navController = navController, user)
         }
 
 //        composable(route = "detail_screen/{matchId}") { backStackEntry ->
@@ -27,10 +28,10 @@ fun NavGraph (navController: NavHostController){
 //        }
 //
         composable(route = ScreensRoutes.PostScreen.route){
-            PostScreenView(navController = navController)
+            PostScreenView(navController = navController, user)
         }
         composable(route = ScreensRoutes.ProfileScreen.route){
-            ProfileScreenView(navController = navController)
+            ProfileScreenView(navController = navController, user)
         }
     }
 }

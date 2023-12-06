@@ -11,6 +11,9 @@ interface UserService {
     @GET("user/{id}")
     fun getUser(@Path("id") id: String): User
 
+    @GET("user/city/{city}")
+    suspend fun getUsersByCity(@Path("city") city: String): List<User>
+
     @GET("user/")
     suspend fun getAllUsers(): List<User>
 
