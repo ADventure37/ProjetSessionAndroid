@@ -37,9 +37,11 @@ fun NavGraph (navController: NavHostController, user: User){
         composable(route = ScreensRoutes.ProfileScreen.route){
             ProfileScreenView(navController = navController, user)
         }
+        //Page pour consulter son historique de commandes
         composable(route = ScreensRoutes.HistoricCommandScreen.route){
             HistoricScreenView(navController = navController, user, historic="command")
         }
+        //Page pour consulter son historique de dons
         composable(route = ScreensRoutes.HistoricDonScreen.route){
             HistoricScreenView(navController = navController, user, historic="don")
         }

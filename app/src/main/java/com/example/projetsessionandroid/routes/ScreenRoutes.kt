@@ -8,7 +8,9 @@ sealed class ScreensRoutes(val route: String) {
     object PostScreen: ScreensRoutes("post_screen")
     //Route de la page du Profil
     object ProfileScreen: ScreensRoutes("profile_screen")
+    //Route de la page historique des commandes
     object HistoricCommandScreen: ScreensRoutes("historic_command_screen")
+    //Route de la page historique des dons
     object HistoricDonScreen: ScreensRoutes("historic_don_screen")
 
 }

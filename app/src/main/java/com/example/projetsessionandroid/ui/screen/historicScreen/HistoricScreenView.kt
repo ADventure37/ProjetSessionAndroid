@@ -1,13 +1,9 @@
 package com.example.projetsessionandroid.ui.screen.historicScreen
 
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Button
-import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -25,11 +21,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
-import com.example.projetsessionandroid.data.model.Food
 import com.example.projetsessionandroid.data.model.User
 import com.example.projetsessionandroid.ui.screen.accueilScreen.ProductItem
 import com.example.projetsessionandroid.ui.screen.navigation.BottomBar
-import com.example.projetsessionandroid.ui.screen.profileScreen.profilView
 import com.example.projetsessionandroid.ui.viewModel.FoodViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -57,19 +51,20 @@ fun HistoricScreenView(navController: NavHostController, user: User, historic : 
                 .padding(innerPadding)
 
         ) {
+            // Affichage des dons ou des commands en fonction de l'historique souhaité
             if(historic == "command") {
-                itemHistoricCommand(user)
+                itemHistoricCommand(user, navController)
             }
             if(historic =="don"){
-                itemHistoricDon(user)
+                itemHistoricDon(user, navController)
             }
         }
     }
 }
 
 @Composable
-fun itemHistoricCommand(user:User){
-
+fun itemHistoricCommand(user:User, navController: NavHostController){
+    //Variable aui permet de stocker les informations recuperer de l'api
     val foodViewModel : FoodViewModel = viewModel()
     val foods by foodViewModel.foods.collectAsState()
     if (foods.isEmpty()) foodViewModel.getAllFood()
@@ -83,18 +78,18 @@ fun itemHistoricCommand(user:User){
             style = MaterialTheme.typography.headlineMedium,
             fontWeight = FontWeight.Bold
         )
-
+        //Récupération des commandes de l'utilisateur connecté et affichage
         for(food in foods) {
             if (food.idClient == user._id){
-                ProductItem(food)
+                ProductItem(food, navController)
             }
         }
     }
 }
 
 @Composable
-fun itemHistoricDon(user:User){
-
+fun itemHistoricDon(user:User, navController: NavHostController){
+    //Declaration des variables aui permettront de stocker les informations recuperer de l'api
     val foodViewModel : FoodViewModel = viewModel()
     val foods by foodViewModel.foods.collectAsState()
     if (foods.isEmpty()) foodViewModel.getAllFood()
@@ -108,10 +103,10 @@ fun itemHistoricDon(user:User){
             style = MaterialTheme.typography.headlineMedium,
             fontWeight = FontWeight.Bold
         )
-
+        // Récupérer les dons de l'utilsateur et affichage
         for(food in foods) {
             if (user._id == food.idDonator){
-                ProductItem(food)
+                ProductItem(food, navController)
             }
         }
     }
