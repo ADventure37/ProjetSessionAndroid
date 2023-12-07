@@ -3,6 +3,7 @@ package com.example.projetsessionandroid.data.model
 import com.google.gson.annotations.SerializedName
 import java.util.Date
 
+//Model qui permettra d'utiliser des elements nourritures
 class Food (
     @SerializedName("id")
     val _id:String,

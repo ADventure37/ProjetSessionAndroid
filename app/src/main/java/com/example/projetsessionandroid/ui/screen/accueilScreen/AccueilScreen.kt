@@ -47,12 +47,13 @@ import com.example.projetsessionandroid.ui.viewModel.UserViewModel
 import kotlinx.coroutines.flow.map
 import kotlin.time.Duration.Companion.minutes
 
-
+//Page d'accueil de l'application
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AccueilScreenView(navController: NavHostController, user: User)  {
-
+    //Structure de la page
     Scaffold(
+        //haut de la page
         topBar = {
             TopAppBar(
                 title = {
@@ -66,6 +67,7 @@ fun AccueilScreenView(navController: NavHostController, user: User)  {
                 colors = TopAppBarDefaults.smallTopAppBarColors(containerColor = Color.Red)            )
         },
         containerColor = Color.White,
+        //Bas de la page: barre de navigation
         bottomBar ={ BottomBar(navController = navController)}
     ){ innerPadding ->
         Column(
@@ -74,11 +76,13 @@ fun AccueilScreenView(navController: NavHostController, user: User)  {
                 .padding(innerPadding)
                 .verticalScroll(rememberScrollState())
         ) {
+            //Corps de la page
             MySearchScreen(navController)
         }
     }
 }
 
+//Barre de recherche
 @Composable
 fun SearchBar(onSearchClicked: (String) -> Unit) {
     var text by remember { mutableStateOf(TextFieldValue()) }
@@ -115,8 +119,10 @@ fun SearchBar(onSearchClicked: (String) -> Unit) {
 
 @Composable
 fun MySearchScreen(navController: NavHostController) {
+    //Valeur initial de la barre de recherche
     var search by remember { mutableStateOf("") }
 
+    //Variables permettant de recuperer et de stocker les donnees de l'api
     val foodViewModel : FoodViewModel = viewModel()
     val foods by foodViewModel.foods.collectAsState()
     if (foods.isEmpty()) foodViewModel.getAllFood()
@@ -126,7 +132,7 @@ fun MySearchScreen(navController: NavHostController) {
         search = searchText
     })
 
-
+    //Algo d'affichage des annonces en fonction de la ville rentrer dans la barre de recherche
     for(food in foods){
         if(search == ""){
             ProductItem(food, navController)
@@ -143,12 +149,12 @@ fun MySearchScreen(navController: NavHostController) {
                     }
                 }
             }
-            
         }
     }
 
 }
 
+//Carte qui permet d'afficher les informations essentiel d'une annonce
 @Composable
 fun ProductItem(food:Food, navController: NavHostController) {
     Card(
@@ -159,6 +165,7 @@ fun ProductItem(food:Food, navController: NavHostController) {
         Column(
             modifier = Modifier.padding(16.dp)
         ) {
+            //Affichage des informations importantes de l'annonce
             Text(text = "${food.name}", style = MaterialTheme.typography.headlineMedium)
             Spacer(modifier = Modifier.height(8.dp))
             Text(text = "Quantity: ${food.quantity}g", style = MaterialTheme.typography.bodyLarge)
@@ -181,8 +188,8 @@ fun ProductItem(food:Food, navController: NavHostController) {
                     style = MaterialTheme.typography.bodyLarge
                 )
             }
-
             Spacer(modifier = Modifier.height(16.dp))
+            //Redirection vers la page detail de cette annonce
             Button(onClick = {
                 navController.navigate("detail_screen/${food._id}")
             }) {

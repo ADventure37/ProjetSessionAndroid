@@ -1,9 +1,11 @@
 package com.example.projetsessionandroid.routes
 
+//la classe des routes
 sealed class ScreensRoutes(val route: String) {
-    //l'interface des routes
+    //Route de la page d'accueil
     object HomeScreen: ScreensRoutes("home_screen")
+    //Route de la page Post
     object PostScreen: ScreensRoutes("post_screen")
-    object DetailScreen: ScreensRoutes("detail_screen/{foodId}")
+    //Route de la page du Profil
     object ProfileScreen: ScreensRoutes("profile_screen")
 }

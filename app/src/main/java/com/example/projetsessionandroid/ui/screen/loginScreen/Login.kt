@@ -31,15 +31,18 @@ import com.example.projetsessionandroid.ui.viewModel.FoodViewModel
 import com.example.projetsessionandroid.ui.viewModel.UserViewModel
 import java.io.File
 
+//Page de login de l'application
 @Composable
 fun LoginPage(onLogin: (mail: String, password: String, user: User) -> Unit) {
+    //Declaration des variables aui permettront de stocker les informations recuperer de l'api
     val userViewModel: UserViewModel = viewModel()
-
     val users by userViewModel.users.collectAsState()
     if (users.isEmpty()) userViewModel.getAllUser()
 
+    //Declaration des variables qui permettront de stocker les informations rentrer par l'utilisateur
     var mail by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
+
     var userConnected: User? = null
 
 
@@ -49,11 +52,13 @@ fun LoginPage(onLogin: (mail: String, password: String, user: User) -> Unit) {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        //Affichage du logo de notre entreprise
         Image(
             painter = painterResource(id = R.mipmap.logo),
             contentDescription = "Sample Image",
             modifier = Modifier.size(200.dp).padding(bottom = 16.dp) // Modifier la taille de l'image selon vos besoins
         )
+        //Zone de texte pour renter l'email et le mot de passe
         TextField(
             value = mail,
             onValueChange = { mail = it },
@@ -65,12 +70,12 @@ fun LoginPage(onLogin: (mail: String, password: String, user: User) -> Unit) {
             label = { Text("Mot de passe") },
             visualTransformation = PasswordVisualTransformation()
         )
+        //Bouton de connexion
         Button(
             onClick = {
+                //Verification de l'authenticite de la connexion
                 var verif = false
                 for(user in users){
-                    println(user.email + " vs "+ mail)
-                    println(user.password + " vs "+ password)
                     if(user.email == mail && user.password == password){
                         verif = true
                         userConnected = user

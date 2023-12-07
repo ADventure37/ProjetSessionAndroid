@@ -56,11 +56,11 @@ import org.osmdroid.tileprovider.tilesource.TileSourceFactory
 import org.osmdroid.util.GeoPoint
 import org.osmdroid.views.MapView
 
-// Composant Jetpack Compose pour afficher les détails d'un produit
+// Composant Jetpack Compose pour afficher les détails d'une annonce
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DetailsScreenView(navController: NavHostController, user: User, foodId : String?) {
-
+    //variables permettant de recuperer et de stocker les valeurs de l'api
     var foodViewModel: FoodViewModel = viewModel()
     var userViewModel: UserViewModel = viewModel()
 
@@ -70,14 +70,16 @@ fun DetailsScreenView(navController: NavHostController, user: User, foodId : Str
 
     val food by foodViewModel.food.observeAsState()
 
+    //Exploitation des donnees fournient par l'api
     food?.let { foodData ->
-
+        //variables permettant de recuperer et de stocker les valeurs de l'api
         userViewModel.getUserById(foodData.idDonator)
         val donator by userViewModel.user.observeAsState()
-
+        //Exploitation des donnees fournient par l'api
         donator?.let { donatorData ->
-
+            //Structure de la page
             Scaffold(
+                //haut de la page
                 topBar = {
                     TopAppBar(
                         title = {
@@ -91,14 +93,17 @@ fun DetailsScreenView(navController: NavHostController, user: User, foodId : Str
                         colors = TopAppBarDefaults.smallTopAppBarColors(containerColor = Color.Red)            )
                 },
                 containerColor = Color.White,
+                //Bas de la page qui correspond a la barre de navigation
                 bottomBar ={ BottomBar(navController = navController) }
             ){ innerPadding ->
+                //Corps de la page
                 Column(
                     modifier = Modifier
                         .fillMaxSize()
                         .padding(innerPadding)
                         .verticalScroll(rememberScrollState())
                 ) {
+                    //Affichage des informations de l'annonces
                     DetailsDescription(navController, user,donatorData, foodData)
                 }
             }
@@ -106,6 +111,7 @@ fun DetailsScreenView(navController: NavHostController, user: User, foodId : Str
     }
 }
 
+//Affichage des informations de l'annonces
 @Composable
 fun DetailsDescription(navController: NavHostController, user: User,donator: User, food : Food) {
     var foodViewModel: FoodViewModel = viewModel()
@@ -120,6 +126,7 @@ fun DetailsDescription(navController: NavHostController, user: User,donator: Use
                 .fillMaxWidth()
                 .padding(8.dp)
         ) {
+            //Affichage et mise en page des informations
             Text(
                 text = food.name,
                 style = MaterialTheme.typography.headlineLarge
@@ -149,6 +156,7 @@ fun DetailsDescription(navController: NavHostController, user: User,donator: Use
                 text = "Donné par: ${donator.username} ${donator.lastname}",
                 style = MaterialTheme.typography.headlineSmall
             )
+            //est afficher si et seulement si le plat est reserve
             if(food.idClient != null){
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
@@ -161,6 +169,7 @@ fun DetailsDescription(navController: NavHostController, user: User,donator: Use
                 text = "À: ${donator.city} ",
                 style = MaterialTheme.typography.headlineSmall
             )
+            //est afficher si et seulement si le plat est reserve
             if(food.idClient != null){
                 var adresse = donator.location.split(" ")
                 Spacer(modifier = Modifier.height(8.dp))
@@ -170,13 +179,15 @@ fun DetailsDescription(navController: NavHostController, user: User,donator: Use
                         text = "Veuillez récupérer la nourriture ici")
             }
 
-
+            //Tentative d'affichage d'une map
 //            Spacer(modifier = Modifier.height(60.dp))
 //            MapView pour afficher la mini-map
 //            OsmMap()
 
             Spacer(modifier = Modifier.height(16.dp))
+            //est afficher si et seulement si le plat n'est pas reserve
             if(food.idClient == null) {
+                //Si l'utilisateur est le proprietaire de l'annonce, il peut la supprimer
                 if(user._id == donator._id){
                     Button(onClick = {
                         foodViewModel.deleteFood(food)
@@ -184,6 +195,7 @@ fun DetailsDescription(navController: NavHostController, user: User,donator: Use
                     }) {
                         Text(text = "Supprimer")
                     }
+                //Sinon, il peut la reserver
                 }else{
                     Button(onClick = {
                         food.idClient = user._id
@@ -194,12 +206,11 @@ fun DetailsDescription(navController: NavHostController, user: User,donator: Use
                     }
                 }
             }
-
-
         }
     }
 }
 
+//Tentative d'utilisation d'une map
 @SuppressLint("UnrememberedMutableState")
 @Composable
 fun OsmMap() {
@@ -230,6 +241,7 @@ fun OsmMap() {
     )
 }
 
+//Lien cliquable qui renvoie a google map
 @Composable
 fun LinkedText(url: String, text: String) {
     val context = LocalContext.current

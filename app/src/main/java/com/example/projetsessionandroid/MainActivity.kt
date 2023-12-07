@@ -22,6 +22,7 @@ import com.example.projetsessionandroid.ui.theme.ProjetSessionAndroidTheme
 import com.example.projetsessionandroid.ui.viewModel.UserViewModel
 
 class MainActivity : ComponentActivity() {
+    //Etat initial avant la connexion
     private var isLoggedIn by mutableStateOf(false)
     private var userC by mutableStateOf(User("", "","","","",
         "","","",0))
@@ -35,7 +36,6 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     if (isLoggedIn) {
-                        println("log reussi")
                         // Utilisateur connecté, afficher le reste de l'application
                         val navController = rememberNavController()
                         NavGraph(navController = navController, userC)
