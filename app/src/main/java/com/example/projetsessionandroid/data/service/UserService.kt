@@ -9,7 +9,7 @@ interface UserService {
     fun createUser(@Body user: User)
 
     @GET("user/{id}")
-    fun getUser(@Path("id") id: String): User
+    suspend fun getUser(@Path("id") id: String): User
 
     @GET("user/city/{city}")
     suspend fun getUsersByCity(@Path("city") city: String): List<User>

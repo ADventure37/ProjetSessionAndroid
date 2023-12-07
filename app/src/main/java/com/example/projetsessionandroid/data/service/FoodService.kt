@@ -12,11 +12,11 @@ interface FoodService {
     suspend fun createFood(@Body food: Food): Food
 
     @GET("food/{id}")
-    fun getFoodById(@Path("id") id: String): Food
+    suspend fun getFoodById(@Path("id") id: String): Food
 
     @PUT("food/{id}")
-    fun updateFood(@Path("id") id: String, @Body food: Food): Call<Food>
+    suspend fun updateFood(@Path("id") id: String, @Body food: Food): Food
 
     @DELETE("food/{id}")
-    fun deleteFood(@Path("id") id: String): Call<Void>
+    suspend fun deleteFood(@Path("id") id: String): Void
 }

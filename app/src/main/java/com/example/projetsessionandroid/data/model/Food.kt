@@ -5,7 +5,7 @@ import java.util.Date
 
 class Food (
     @SerializedName("id")
-    val id:String,
+    val _id:String,
     @SerializedName("name")
     val name:String,
     @SerializedName("description")
@@ -19,5 +19,5 @@ class Food (
     @SerializedName("idDonator")
     val idDonator:String,
     @SerializedName("idClient")
-    val idClient:String,
+    var idClient:String,
 )

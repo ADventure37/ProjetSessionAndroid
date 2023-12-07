@@ -61,7 +61,7 @@ class FoodViewModel: ViewModel() {
     fun updateFood(food : Food){
         viewModelScope.launch {
             try {
-                service.updateFood(food.id,food)
+                service.updateFood(food._id,food)
             } catch (e: Exception) {
                 // Gérer les erreurs
                 e.printStackTrace()
@@ -72,7 +72,7 @@ class FoodViewModel: ViewModel() {
     fun deleteFood(food : Food){
         viewModelScope.launch {
             try {
-                service.deleteFood(food.id)
+                service.deleteFood(food._id)
             } catch (e: Exception) {
                 // Gérer les erreurs
                 e.printStackTrace()

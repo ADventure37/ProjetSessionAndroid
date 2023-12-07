@@ -74,7 +74,7 @@ fun AccueilScreenView(navController: NavHostController, user: User)  {
                 .padding(innerPadding)
                 .verticalScroll(rememberScrollState())
         ) {
-            MySearchScreen()
+            MySearchScreen(navController)
         }
     }
 }
@@ -114,7 +114,7 @@ fun SearchBar(onSearchClicked: (String) -> Unit) {
 }
 
 @Composable
-fun MySearchScreen() {
+fun MySearchScreen(navController: NavHostController) {
     var search by remember { mutableStateOf("") }
 
     val foodViewModel : FoodViewModel = viewModel()
@@ -136,7 +136,7 @@ fun MySearchScreen() {
     println(foods.size)
     for(food in foods){
         if(search == ""){
-            ProductItem(food)
+            ProductItem(food, navController)
         }else{
             val userViewModel : UserViewModel = viewModel()
             val users by userViewModel.users.collectAsState()
@@ -146,7 +146,7 @@ fun MySearchScreen() {
             }else{
                 for(user in users){
                     if(user._id == food.idDonator){
-                        ProductItem(food)
+                        ProductItem(food, navController)
                     }
                 }
             }
@@ -157,7 +157,7 @@ fun MySearchScreen() {
 }
 
 @Composable
-fun ProductItem(food:Food) {
+fun ProductItem(food:Food, navController: NavHostController) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -177,8 +177,23 @@ fun ProductItem(food:Food) {
                 text = "Date d'Expiration : ${food.expiryDate}",
                 style = MaterialTheme.typography.bodyLarge
             )
+            Spacer(modifier = Modifier.height(8.dp))
+            if(food.idClient == null){
+                Text(
+                    text = "Status : Libre",
+                    style = MaterialTheme.typography.bodyLarge
+                )
+            }else{
+                Text(
+                    text = "Status : Reserver",
+                    style = MaterialTheme.typography.bodyLarge
+                )
+            }
+
             Spacer(modifier = Modifier.height(16.dp))
-            Button(onClick = {  }) {
+            Button(onClick = {
+                navController.navigate("detail_screen/${food._id}")
+            }) {
                 Text(text = "Détails")
             }
         }
