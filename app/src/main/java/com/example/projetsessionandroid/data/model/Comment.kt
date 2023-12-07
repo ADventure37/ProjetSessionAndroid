@@ -3,6 +3,7 @@ package com.example.projetsessionandroid.data.model
 import com.google.gson.annotations.SerializedName
 import java.util.Date
 
+//Model qui permettra d'utiliser des commentaires
 class Comment (
     @SerializedName("id")
     val id:String,

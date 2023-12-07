@@ -33,10 +33,12 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
+//Page qui permet de poster une nouvelle annonce
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PostScreenView(navController: NavHostController, user: User)  {
-
+    //Structure de la page
+    //Haut de la page
     Scaffold(
         topBar = {
             TopAppBar(
@@ -50,8 +52,11 @@ fun PostScreenView(navController: NavHostController, user: User)  {
                 },
                 colors = TopAppBarDefaults.smallTopAppBarColors(containerColor = Color.Red)            )
         },
+        //Couleur de la page
         containerColor = Color.White,
+        //Bas de la page avec la barre de navigation
         bottomBar ={ BottomBar(navController = navController) }
+    //Corps de la page
     ){ innerPadding ->
         Column(
             modifier = Modifier
@@ -63,7 +68,7 @@ fun PostScreenView(navController: NavHostController, user: User)  {
     }
 }
 
-
+//Formulaire d'ajout d'une annonce de nourriture
 @Composable
 fun itemPostAnnonce(user: User) {
     val initialTextValue = remember { "" }
@@ -73,12 +78,14 @@ fun itemPostAnnonce(user: User) {
             .padding(16.dp)
             .fillMaxWidth()
     ) {
+        //Valeur initiale des zones de texte
         val nameState = remember { mutableStateOf("") }
         val descriptionState = remember { mutableStateOf("") }
         val allergenState = remember { mutableStateOf("") }
         val quantityState = remember { mutableStateOf("") }
         val expiryDateState = remember { mutableStateOf("") }
 
+        //Zone de texte pour le nom du plat
         OutlinedTextField(
             value = nameState.value,
             onValueChange = { nameState.value = it },
@@ -88,6 +95,7 @@ fun itemPostAnnonce(user: User) {
                 .padding(bottom = 16.dp)
         )
 
+        //Zone de texte pour la description du plat
         OutlinedTextField(
             value = descriptionState.value,
             onValueChange = { descriptionState.value = it },
@@ -97,6 +105,7 @@ fun itemPostAnnonce(user: User) {
                 .padding(bottom = 16.dp)
         )
 
+        //Zone de texte pour les allergenes du plat
         OutlinedTextField(
             value = allergenState.value,
             onValueChange = { allergenState.value = it },
@@ -107,6 +116,7 @@ fun itemPostAnnonce(user: User) {
         )
 
         Row {
+            //Zone de texte pour la quantite du plat
             OutlinedTextField(
                 value = quantityState.value,
                 onValueChange = { quantityState.value = it },
@@ -117,6 +127,7 @@ fun itemPostAnnonce(user: User) {
                     .padding(bottom = 16.dp)
             )
 
+            //Zone de texte pour la date de peramption du plat
             OutlinedTextField(
                 value = expiryDateState.value,
                 onValueChange = { expiryDateState.value = it },
@@ -133,6 +144,7 @@ fun itemPostAnnonce(user: User) {
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
+            //Bouton pour soumettre l'annonce
             Button(
                 onClick = {
                     var allergen = allergenState.value.split(",")
@@ -151,7 +163,7 @@ fun itemPostAnnonce(user: User) {
             ) {
                 Text("Valider")
             }
-
+            //Bouton pour reinitialiser les zones de texte
             Button(
                 onClick = {
                     nameState.value = initialTextValue
@@ -165,7 +177,5 @@ fun itemPostAnnonce(user: User) {
                 Text("Réinitialiser")
             }
         }
-
-        }
-
+    }
 }

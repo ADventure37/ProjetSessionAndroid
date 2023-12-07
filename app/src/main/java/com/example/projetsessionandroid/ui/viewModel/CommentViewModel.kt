@@ -13,16 +13,19 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 
 class CommentViewModel: ViewModel() {
 
+    //Initialisation des variables qui vont nous permettrent de stocker les comments recuperer de l'api
     val comments = MutableStateFlow<List<Comment>>(listOf())
     val _comment = MutableLiveData<Comment>()
     val comment: LiveData<Comment> get() = _comment
 
+    //Creation du lien entre l'app android et l'api
     val service = Retrofit.Builder()
         .baseUrl("http://10.0.2.2:3000/api/comment/")
         .addConverterFactory(MoshiConverterFactory.create())
         .build()
         .create(CommentService::class.java)
 
+    //Fonction pour recuperer tous les Comments
     fun getAllComment(){
         viewModelScope.launch {
             try {
@@ -34,6 +37,7 @@ class CommentViewModel: ViewModel() {
         }
     }
 
+    //Fonction pour recuperer un comment en fonction de son id
     fun getCommentById(id : String){
         viewModelScope.launch {
             try {
@@ -45,6 +49,7 @@ class CommentViewModel: ViewModel() {
         }
     }
 
+    //Fonction pour ajouter un comment dans la base de donnee
     fun createComment(comment : Comment){
         viewModelScope.launch {
             try {
@@ -56,6 +61,7 @@ class CommentViewModel: ViewModel() {
         }
     }
 
+    //Fonction pour modifier un comment stocker dans la base de donnee
     fun updateComment(comment : Comment){
         viewModelScope.launch {
             try {
@@ -67,6 +73,7 @@ class CommentViewModel: ViewModel() {
         }
     }
 
+    //Fonction pour supprimer un comment de la base de donnee
     fun deleteComment(comment : Comment){
         viewModelScope.launch {
             try {

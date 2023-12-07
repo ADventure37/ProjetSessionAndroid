@@ -22,6 +22,7 @@ import com.example.projetsessionandroid.ui.theme.ProjetSessionAndroidTheme
 import com.example.projetsessionandroid.ui.viewModel.UserViewModel
 
 class MainActivity : ComponentActivity() {
+    //Etat initial avant la connexion
     private var isLoggedIn by mutableStateOf(false)
     private var userC by mutableStateOf(User("", "","","","",
         "","","",0))
@@ -30,28 +31,25 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             ProjetSessionAndroidTheme {
-                // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
                     if (isLoggedIn) {
-                        println("log reussi")
                         // Utilisateur connecté, afficher le reste de l'application
                         val navController = rememberNavController()
                         NavGraph(navController = navController, userC)
                     } else {
                         // Afficher la page de connexion
                         LoginPage { mail, password, user ->
-                            // Ici, vous pouvez vérifier les informations d'identification
-
                             // Si les informations d'identification sont correctes, définissez isLoggedIn sur true
                             isLoggedIn = true
                             userC = user
                         }
                     }
+                }
             }
         }
     }
-}}
+}
 

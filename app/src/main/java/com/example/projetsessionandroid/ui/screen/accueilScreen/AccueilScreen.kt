@@ -47,12 +47,13 @@ import com.example.projetsessionandroid.ui.viewModel.UserViewModel
 import kotlinx.coroutines.flow.map
 import kotlin.time.Duration.Companion.minutes
 
-
+//Page d'accueil de l'application
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AccueilScreenView(navController: NavHostController, user: User)  {
-
+    //Structure de la page
     Scaffold(
+        //haut de la page
         topBar = {
             TopAppBar(
                 title = {
@@ -66,6 +67,7 @@ fun AccueilScreenView(navController: NavHostController, user: User)  {
                 colors = TopAppBarDefaults.smallTopAppBarColors(containerColor = Color.Red)            )
         },
         containerColor = Color.White,
+        //Bas de la page: barre de navigation
         bottomBar ={ BottomBar(navController = navController)}
     ){ innerPadding ->
         Column(
@@ -74,11 +76,13 @@ fun AccueilScreenView(navController: NavHostController, user: User)  {
                 .padding(innerPadding)
                 .verticalScroll(rememberScrollState())
         ) {
-            MySearchScreen()
+            //Corps de la page
+            MySearchScreen(navController)
         }
     }
 }
 
+//Barre de recherche
 @Composable
 fun SearchBar(onSearchClicked: (String) -> Unit) {
     var text by remember { mutableStateOf(TextFieldValue()) }
@@ -99,7 +103,7 @@ fun SearchBar(onSearchClicked: (String) -> Unit) {
                 .padding(end = 8.dp),
             textStyle = MaterialTheme.typography.bodyMedium,
             singleLine = true,
-            placeholder = { Text("Search") } // Texte de l'espace réservé
+            placeholder = { Text("Recherche par Ville") }
         )
         Button(
             onClick = { onSearchClicked(text.text) },
@@ -114,29 +118,24 @@ fun SearchBar(onSearchClicked: (String) -> Unit) {
 }
 
 @Composable
-fun MySearchScreen() {
+fun MySearchScreen(navController: NavHostController) {
+    //Valeur initial de la barre de recherche
     var search by remember { mutableStateOf("") }
 
+    //Variables permettant de recuperer et de stocker les donnees de l'api
     val foodViewModel : FoodViewModel = viewModel()
     val foods by foodViewModel.foods.collectAsState()
     if (foods.isEmpty()) foodViewModel.getAllFood()
 
-
-
     // Votre logique de recherche et d'affichage ici
     SearchBar(onSearchClicked = { searchText ->
         search = searchText
-        // Implémentez votre logique de recherche en utilisant le texte saisi
-        // Exemple : Afficher les résultats correspondants à la recherche
     })
 
-
-//    val food = Food("1", search, "lasagne fait maison", 500,
-//        listOf("gluten", "tomates"),"2023-12-15", "test", "test")
-    println(foods.size)
+    //Algo d'affichage des annonces en fonction de la ville rentrer dans la barre de recherche
     for(food in foods){
         if(search == ""){
-            ProductItem(food)
+            ProductItem(food, navController)
         }else{
             val userViewModel : UserViewModel = viewModel()
             val users by userViewModel.users.collectAsState()
@@ -146,27 +145,27 @@ fun MySearchScreen() {
             }else{
                 for(user in users){
                     if(user._id == food.idDonator){
-                        ProductItem(food)
+                        ProductItem(food, navController)
                     }
                 }
             }
-            
         }
     }
 
 }
 
+//Carte qui permet d'afficher les informations essentiel d'une annonce
 @Composable
-fun ProductItem(food:Food) {
+fun ProductItem(food:Food, navController: NavHostController) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .padding(8.dp),
-//        elevation = 4.dp
     ) {
         Column(
             modifier = Modifier.padding(16.dp)
         ) {
+            //Affichage des informations importantes de l'annonce
             Text(text = "${food.name}", style = MaterialTheme.typography.headlineMedium)
             Spacer(modifier = Modifier.height(8.dp))
             Text(text = "Quantity: ${food.quantity}g", style = MaterialTheme.typography.bodyLarge)
@@ -177,8 +176,23 @@ fun ProductItem(food:Food) {
                 text = "Date d'Expiration : ${food.expiryDate}",
                 style = MaterialTheme.typography.bodyLarge
             )
+            Spacer(modifier = Modifier.height(8.dp))
+            if(food.idClient == null){
+                Text(
+                    text = "Status : Libre",
+                    style = MaterialTheme.typography.bodyLarge
+                )
+            }else{
+                Text(
+                    text = "Status : Reserver",
+                    style = MaterialTheme.typography.bodyLarge
+                )
+            }
             Spacer(modifier = Modifier.height(16.dp))
-            Button(onClick = {  }) {
+            //Redirection vers la page detail de cette annonce
+            Button(onClick = {
+                navController.navigate("detail_screen/${food._id}")
+            }) {
                 Text(text = "Détails")
             }
         }

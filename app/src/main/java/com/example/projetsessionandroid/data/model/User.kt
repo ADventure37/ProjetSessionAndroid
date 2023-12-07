@@ -1,6 +1,7 @@
 package com.example.projetsessionandroid.data.model
 import com.google.gson.annotations.SerializedName
 
+//Model qui permettra d'utiliser des utilisateurs
 class User (
     @SerializedName("_id")
     val _id:String,
