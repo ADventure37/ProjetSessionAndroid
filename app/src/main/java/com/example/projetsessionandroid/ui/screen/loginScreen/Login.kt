@@ -70,7 +70,7 @@ fun LoginPage(onLogin: (mail: String, password: String, user: User) -> Unit) {
         TextField(
             value = mail,
             onValueChange = { mail = it },
-            label = { Text("Nom d'utilisateur") }
+            label = { Text("Adresse email") }
         )
         TextField(
             value = password,
