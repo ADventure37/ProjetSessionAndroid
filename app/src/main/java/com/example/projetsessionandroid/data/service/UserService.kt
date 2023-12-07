@@ -18,7 +18,7 @@ interface UserService {
     suspend fun getAllUsers(): List<User>
 
     @PUT("user/{id}")
-    fun updateUser(@Path("id") id: String, @Body user: User)
+    suspend fun updateUser(@Path("id") id: String, @Body user: User)
 
     @DELETE("user/{id}")
     fun deleteUser(@Path("id") id: String): Call<Void>

@@ -6,6 +6,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.projetsessionandroid.data.model.User
 import com.example.projetsessionandroid.ui.screen.accueilScreen.AccueilScreenView
+import com.example.projetsessionandroid.ui.screen.historicScreen.HistoricScreenView
 import com.example.projetsessionandroid.ui.screen.postScreen.PostScreenView
 import com.example.projetsessionandroid.ui.screen.profileScreen.ProfileScreenView
 
@@ -32,6 +33,12 @@ fun NavGraph (navController: NavHostController, user: User){
         }
         composable(route = ScreensRoutes.ProfileScreen.route){
             ProfileScreenView(navController = navController, user)
+        }
+        composable(route = ScreensRoutes.HistoricCommandScreen.route){
+            HistoricScreenView(navController = navController, user, historic="command")
+        }
+        composable(route = ScreensRoutes.HistoricDonScreen.route){
+            HistoricScreenView(navController = navController, user, historic="don")
         }
     }
 }
