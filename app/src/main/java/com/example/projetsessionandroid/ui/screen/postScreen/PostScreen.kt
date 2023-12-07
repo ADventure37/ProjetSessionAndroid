@@ -165,7 +165,5 @@ fun itemPostAnnonce(user: User) {
                 Text("Réinitialiser")
             }
         }
-
-        }
-
+    }
 }

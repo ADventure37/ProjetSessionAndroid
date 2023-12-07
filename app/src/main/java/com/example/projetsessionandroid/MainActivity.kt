@@ -30,7 +30,6 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             ProjetSessionAndroidTheme {
-                // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
@@ -43,15 +42,14 @@ class MainActivity : ComponentActivity() {
                     } else {
                         // Afficher la page de connexion
                         LoginPage { mail, password, user ->
-                            // Ici, vous pouvez vérifier les informations d'identification
-
                             // Si les informations d'identification sont correctes, définissez isLoggedIn sur true
                             isLoggedIn = true
                             userC = user
                         }
                     }
+                }
             }
         }
     }
-}}
+}
 

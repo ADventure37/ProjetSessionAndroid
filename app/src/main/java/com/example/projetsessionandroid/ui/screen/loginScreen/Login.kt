@@ -42,12 +42,6 @@ fun LoginPage(onLogin: (mail: String, password: String, user: User) -> Unit) {
     var password by remember { mutableStateOf("") }
     var userConnected: User? = null
 
-    val imagePath = "app/src/main/java/com/example/projetsessionandroid/data/photo/logo.png"   // Remplacez ceci par votre chemin d'accès local à l'image
-
-    val file = File(imagePath)
-    val painter = rememberImagePainter(
-        data = file
-    )
 
 
     Column(
@@ -55,13 +49,6 @@ fun LoginPage(onLogin: (mail: String, password: String, user: User) -> Unit) {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-//        Image(
-//            painter = painter,
-//            contentDescription = "Image de profil",
-//            modifier = Modifier.fillMaxSize(),
-//            contentScale = ContentScale.FillBounds,
-//            colorFilter = ColorFilter.tint(Color.White) // Vous pouvez ajouter un filtre de couleur à l'image si nécessaire
-//        )
         Image(
             painter = painterResource(id = R.mipmap.logo),
             contentDescription = "Sample Image",

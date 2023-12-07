@@ -99,7 +99,7 @@ fun SearchBar(onSearchClicked: (String) -> Unit) {
                 .padding(end = 8.dp),
             textStyle = MaterialTheme.typography.bodyMedium,
             singleLine = true,
-            placeholder = { Text("Search") } // Texte de l'espace réservé
+            placeholder = { Text("Recherche par Ville") }
         )
         Button(
             onClick = { onSearchClicked(text.text) },
@@ -121,19 +121,12 @@ fun MySearchScreen(navController: NavHostController) {
     val foods by foodViewModel.foods.collectAsState()
     if (foods.isEmpty()) foodViewModel.getAllFood()
 
-
-
     // Votre logique de recherche et d'affichage ici
     SearchBar(onSearchClicked = { searchText ->
         search = searchText
-        // Implémentez votre logique de recherche en utilisant le texte saisi
-        // Exemple : Afficher les résultats correspondants à la recherche
     })
 
 
-//    val food = Food("1", search, "lasagne fait maison", 500,
-//        listOf("gluten", "tomates"),"2023-12-15", "test", "test")
-    println(foods.size)
     for(food in foods){
         if(search == ""){
             ProductItem(food, navController)
@@ -162,7 +155,6 @@ fun ProductItem(food:Food, navController: NavHostController) {
         modifier = Modifier
             .fillMaxWidth()
             .padding(8.dp),
-//        elevation = 4.dp
     ) {
         Column(
             modifier = Modifier.padding(16.dp)

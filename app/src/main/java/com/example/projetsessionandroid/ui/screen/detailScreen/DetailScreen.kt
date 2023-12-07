@@ -103,17 +103,12 @@ fun DetailsScreenView(navController: NavHostController, user: User, foodId : Str
                 }
             }
         }
-
-        }
-
-
-
+    }
 }
 
 @Composable
 fun DetailsDescription(navController: NavHostController, user: User,donator: User, food : Food) {
     var foodViewModel: FoodViewModel = viewModel()
-
 
     Surface(
         modifier = Modifier.fillMaxSize(),
@@ -177,7 +172,7 @@ fun DetailsDescription(navController: NavHostController, user: User,donator: Use
 
 
 //            Spacer(modifier = Modifier.height(60.dp))
-//            // MapView pour afficher la mini-map
+//            MapView pour afficher la mini-map
 //            OsmMap()
 
             Spacer(modifier = Modifier.height(16.dp))
@@ -227,8 +222,6 @@ fun OsmMap() {
         setTileSource(TileSourceFactory.DEFAULT_TILE_SOURCE)
         // Configuration supplémentaire de la carte (zoom, etc.)
         setMultiTouchControls(true)
-        // Autres configurations nécessaires
-        // ...
     }
 
     AndroidView(
@@ -245,10 +238,9 @@ fun LinkedText(url: String, text: String) {
         style = TextStyle(color = Color.Blue, fontWeight = FontWeight.Bold),
         modifier = Modifier.clickable {
             // Ouvrir le lien dans un navigateur
-            // (Ceci est un exemple, vous pouvez implémenter l'ouverture du lien comme vous le souhaitez)
             val intent = Intent(Intent.ACTION_VIEW)
             intent.data = Uri.parse(url)
-            context.startActivity(intent) // Assurez-vous d'avoir accès au contexte ici
+            context.startActivity(intent)
         }
     )
 }

@@ -17,7 +17,6 @@ fun NavGraph (navController: NavHostController, user: User){
         startDestination = ScreensRoutes.HomeScreen.route
     )
     {
-
         composable(route = ScreensRoutes.HomeScreen.route){
             AccueilScreenView(navController = navController, user)
         }
@@ -27,10 +26,11 @@ fun NavGraph (navController: NavHostController, user: User){
             val foodId = backStackEntry.arguments?.getString("foodId")
             DetailsScreenView(navController, user, foodId)
         }
-//
+
         composable(route = ScreensRoutes.PostScreen.route){
             PostScreenView(navController = navController, user)
         }
+
         composable(route = ScreensRoutes.ProfileScreen.route){
             ProfileScreenView(navController = navController, user)
         }
