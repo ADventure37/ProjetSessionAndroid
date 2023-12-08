@@ -141,7 +141,7 @@ fun MySearchScreen(navController: NavHostController) {
             val users by userViewModel.users.collectAsState()
             if (users.isEmpty()) userViewModel.getUsersByCity(search)
             if(users.isEmpty()){
-                Text(text = "Aucune food trouver")
+                Text(text = "")
             }else{
                 for(user in users){
                     if(user._id == food.idDonator){
