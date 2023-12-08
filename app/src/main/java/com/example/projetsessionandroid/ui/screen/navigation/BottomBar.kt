@@ -11,10 +11,13 @@ import androidx.compose.ui.res.painterResource
 import androidx.navigation.NavController
 import com.example.projetsessionandroid.routes.ScreensRoutes
 
+//Composant qui correspond a la bar de navigation qui se situe en bas de l'ecran et
+//qui permet de naviger entre les diffrentes pages
 @Composable
 fun BottomBar(navController: NavController) {
     NavigationBar (containerColor = Color.LightGray){
         // Les éléments de la barre de navigation
+        //Element pour la page d'accueil
         NavigationBarItem(
             selected = false,
             onClick = { navController.navigate(ScreensRoutes.HomeScreen.route) },
@@ -27,25 +30,26 @@ fun BottomBar(navController: NavController) {
             },
             label = { Text("Accueil", color = Color.White) }
         )
+        //Element pour la page d'ajout d'une annonce
         NavigationBarItem(
             selected = false,
             onClick = {navController.navigate(ScreensRoutes.PostScreen.route) },
             icon = {
                 Icon(
-                    painter = painterResource(id = R.drawable.btn_star_big_on),
+                    painter = painterResource(id = android.R.drawable.ic_menu_add),
                     contentDescription = null,
                     tint = Color.White
                 )
             },
             label = { Text("Post", color = Color.White) }
         )
-
+        //Element pour la page du profil de l'utilisateur
         NavigationBarItem(
             selected = false,
             onClick = {navController.navigate(ScreensRoutes.ProfileScreen.route) },
             icon = {
                 Icon(
-                    painter = painterResource(id = R.drawable.btn_star_big_on),
+                    painter = painterResource(id = android.R.drawable.ic_menu_myplaces),
                     contentDescription = null,
                     tint = Color.White
                 )

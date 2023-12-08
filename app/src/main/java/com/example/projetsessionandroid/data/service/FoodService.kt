@@ -4,19 +4,26 @@ import com.example.projetsessionandroid.data.model.Food
 import retrofit2.Call
 import retrofit2.http.*
 
+//Fichier qui permet de tracer les routes vers l'api pour le model Food
+
 interface FoodService {
-    @GET("/")
-    fun getAllFoods(): List<Food>
+    //recuperer tous les foods
+    @GET("food/")
+    suspend fun getAllFoods(): List<Food>
 
-    @POST("/")
-    fun createFood(@Body food: Food): Call<Food>
+    //creer un Food
+    @POST("food/")
+    suspend fun createFood(@Body food: Food): Food
 
-    @GET("/{id}")
-    fun getFoodById(@Path("id") id: String): Food
+    //recuperer un food en fonction de son id
+    @GET("food/{id}")
+    suspend fun getFoodById(@Path("id") id: String): Food
 
-    @PUT("/{id}")
-    fun updateFood(@Path("id") id: String, @Body food: Food): Call<Food>
+    //modifier un food en fonction de son id
+    @PUT("food/{id}")
+    suspend fun updateFood(@Path("id") id: String, @Body food: Food): Food
 
-    @DELETE("/{id}")
-    fun deleteFood(@Path("id") id: String): Call<Void>
+    //supprimer un food
+    @DELETE("food/{id}")
+    suspend fun deleteFood(@Path("id") id: String): Void
 }

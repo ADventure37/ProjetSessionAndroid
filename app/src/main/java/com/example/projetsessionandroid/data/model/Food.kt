@@ -3,9 +3,10 @@ package com.example.projetsessionandroid.data.model
 import com.google.gson.annotations.SerializedName
 import java.util.Date
 
+//Model qui permettra d'utiliser des elements nourritures
 class Food (
     @SerializedName("id")
-    val id:String,
+    val _id:String,
     @SerializedName("name")
     val name:String,
     @SerializedName("description")
@@ -13,11 +14,11 @@ class Food (
     @SerializedName("quantity")
     val quantity:Int,
     @SerializedName("allergen")
-    val allergen:MutableList<String>,
+    val allergen:List<String>,
     @SerializedName("expiryDate")
-    val expiryDate:Date,
+    val expiryDate:String,
     @SerializedName("idDonator")
     val idDonator:String,
     @SerializedName("idClient")
-    val idClient:String,
+    var idClient:String,
 )

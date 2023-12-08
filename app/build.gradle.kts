@@ -71,6 +71,9 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4")
     implementation("androidx.media3:media3-common:1.1.1")
+    implementation ("io.coil-kt:coil-compose:1.4.0")
+    implementation ("org.osmdroid:osmdroid-android:6.1.13") // Remplacez xx.x.x par la dernière version disponible
+
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
